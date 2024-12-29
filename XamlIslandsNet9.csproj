@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <UseUwp>true</UseUwp>
+    <UseUwpTools>true</UseUwpTools>
+    <Platforms>x64;arm64;x86</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <PublishAot>true</PublishAot>
+    <DisableRuntimeMarshalling>true</DisableRuntimeMarshalling>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WindowsSdkPackageVersion>10.0.26100.39</WindowsSdkPackageVersion>
+    <DisableEmbeddedXbf>true</DisableEmbeddedXbf>
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AppxTargetDeviceFamilyItem Include="Windows.Desktop" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.UI.Xaml" Version="2.8.7-prerelease.241119001" />
+	  <PackageReference Include="Microsoft.Windows.SDK.CPP" Version="10.0.26100.2454" />
+    <PackageReference Include="TerraFX.Interop.Windows" Version="10.0.26100" />
+    <PackageReference Include="Win2D.uwp" Version="1.28.1" />
+  </ItemGroup>
+</Project>
