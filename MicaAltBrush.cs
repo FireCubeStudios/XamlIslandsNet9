@@ -18,7 +18,7 @@ namespace XamlIslandsNet9
 		Custom = 2
 	}
 
-	public class MicaAltBrush : XamlCompositionBrushBase, INotifyPropertyChanged
+	public partial class MicaAltBrush : XamlCompositionBrushBase, INotifyPropertyChanged
 	{
 		private double tintOpacity;
 

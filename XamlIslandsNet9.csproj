@@ -14,7 +14,7 @@
     <PublishAot>true</PublishAot>
     <DisableRuntimeMarshalling>true</DisableRuntimeMarshalling>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <WindowsSdkPackageVersion>10.0.26100.39</WindowsSdkPackageVersion>
+    <WindowsSdkPackageVersion>10.0.26100.57</WindowsSdkPackageVersion>
     <DisableEmbeddedXbf>true</DisableEmbeddedXbf>
     <DefineConstants>DISABLE_XAML_GENERATED_MAIN;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
@@ -24,9 +24,22 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageReference Include="FluentIcons.Common" Version="1.1.271" />
+	  <PackageReference Include="FluentIcons.Uwp" Version="1.1.271" />
 	  <PackageReference Include="Microsoft.UI.Xaml" Version="2.8.7-prerelease.241119001" />
 	  <PackageReference Include="Microsoft.Windows.SDK.CPP" Version="10.0.26100.2454" />
+	  <PackageReference Include="NPSMLib" Version="0.9.14" />
+	  <PackageReference Include="PowerStatus" Version="1.0.3" />
     <PackageReference Include="TerraFX.Interop.Windows" Version="10.0.26100" />
     <PackageReference Include="Win2D.uwp" Version="1.28.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\MediaPlayerControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\VolumeControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

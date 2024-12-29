@@ -1,3 +1,5 @@
+using PowerStatus;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,11 +24,18 @@ namespace XamlIslandsNet9
 		}
         
         private void PageLoaded(object sender, RoutedEventArgs e)
-        {
+		{
 			var m = new MicaAltBrush();
 			m.Kind = (int)BackdropKind.BaseAlt;
 			m.Theme = ElementTheme.Default;
-			this.Background = m;
+			VolumeControl.Background = m;
+			MediaNPSMControl.Background = m;
+
+			var statusProvider = new PowerStatusProvider();
+			var status = statusProvider.GetStatus();
+			Debug.WriteLine($"{status}");
+			Debug.WriteLine($"{status}");
+
 
 			/* // We aren't even using Bing tile source, so let's just hide the warning
 			 TryHideBingWarning(mapControl);

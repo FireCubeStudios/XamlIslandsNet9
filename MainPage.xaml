@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:XamlIslandsNet9.Controls"
     mc:Ignorable="d"
-    controls:BackdropMaterial.ApplyToRootOrPageBackground="True" Loaded="PageLoaded">
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Loaded="PageLoaded">
 
     <Grid x:Name="MainGrid">
         <Button Width="20" Height="20" Background="Red">
@@ -26,68 +26,18 @@
                             <Setter Property="IsDefaultShadowEnabled" Value="True"/>
                         </Style>
                     </Flyout.FlyoutPresenterStyle>
-                    <Grid BorderBrush="#757575" CornerRadius="8" BorderThickness="1">
-                        <Grid.Background>
-                            <AcrylicBrush
-BackgroundSource="HostBackdrop"
-FallbackColor="#FF1C1C1C"
-TintColor="#FF202020"
-TintLuminosityOpacity="0.96"
-TintOpacity="0.5" />
-                        </Grid.Background>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="36"/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Padding="12, 8, 12, 0" RowSpacing="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="36"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Top">
-                              <!--  <icons:SymbolIcon Symbol="Battery9" Width="48" Height="36" FontSize="48" Margin="-4, 0, 0, 0"/>-->
-                                <TextBlock Text="90%" FontSize="24" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                <TextBlock Text="1h 24m remaining" FontSize="14" Opacity="0.7" VerticalAlignment="Center" Margin="8, 8, 8, 0"/>
-                                <TextBlock Text="Low usage" FontSize="14" Opacity="0.7" VerticalAlignment="Center" x:FieldModifier="Public" Margin="4, 8, 8, 0"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Row="1" Spacing="4" Padding="0, 0, 14, 0">
-                                <Grid>
-                                    <TextBlock Text="Remaining Capacity" FontSize="14" Opacity="0.9"/>
-                                    <TextBlock Text="13wh" Opacity="0.7" FontSize="14" HorizontalAlignment="Right"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Discharge Rate" FontSize="14" Opacity="0.9"/>
-                                    <TextBlock Text="9w" Opacity="0.7" FontSize="14" HorizontalAlignment="Right"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Battery Health" FontSize="14" Opacity="0.9"/>
-                                    <TextBlock Text="100% (45wh / 45wh)" Opacity="0.7" FontSize="14" HorizontalAlignment="Right"/>
-                                </Grid>
-                            </StackPanel>
-
-                            <StackPanel Grid.Row="2" Spacing="4" Margin="0, 8, 0, 0">
-                                <TextBlock Text="Power Mode" FontWeight="SemiBold"/>
-                                <Slider x:Name="PowerSlider" IsThumbToolTipEnabled="False" TickPlacement="Outside" TickFrequency="1" Minimum="0" Maximum="3" Value="1"/>
-                            </StackPanel>
-
-                            <Grid Grid.Row="3" Padding="0, 0, 0, 14">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                   <!-- <icons:SymbolIcon Symbol="LeafThree" Opacity="0.7"/>-->
-                                    <TextBlock FontSize="12" Opacity="0.7" VerticalAlignment="Center" Text="High efficiency"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
-                                    <TextBlock FontSize="12" Opacity="0.7" VerticalAlignment="Center" Text="High performance"/>
-                                   <!-- <icons:SymbolIcon Symbol="TopSpeed" Opacity="0.7"/>-->
-                                </StackPanel>
+                    <StackPanel Background="Transparent" Spacing="12">
+                        <Grid x:Name="VolumeControl" CornerRadius="8" MinWidth="300" BorderBrush="{ThemeResource MicaBorderBrush}" BorderThickness="1">
+                            <Grid Background="{ThemeResource MicaDarkerBrush}" Padding="4">
+                                <controls:VolumeControl/>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="1" BorderThickness="0, 1, 0, 0" BorderBrush="#757575" Background="{ThemeResource LayerFillColorDefaultBrush}" Padding="4, 2, 4, 2">
-                            <Button HorizontalAlignment="Right" />
+                        <Grid x:Name="MediaNPSMControl" CornerRadius="8" MinWidth="300" BorderBrush="{ThemeResource MicaBorderBrush}" BorderThickness="1">
+                            <Grid Background="{ThemeResource MicaDarkerBrush}" Padding="4">
+                                <controls:MediaPlayerControl/>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </StackPanel>
                 </Flyout>
             </Button.Flyout>
         </Button>
