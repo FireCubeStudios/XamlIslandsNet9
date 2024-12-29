@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Media;
 
-namespace XamlIslandsNet9
+namespace XamlIslandsNet9.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -30,6 +30,7 @@ namespace XamlIslandsNet9
 			m.Theme = ElementTheme.Default;
 			VolumeControl.Background = m;
 			MediaNPSMControl.Background = m;
+			BatteryControl.Background = m;
 
 			var statusProvider = new PowerStatusProvider();
 			var status = statusProvider.GetStatus();

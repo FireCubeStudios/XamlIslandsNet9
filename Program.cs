@@ -6,6 +6,9 @@ using TerraFX.Interop.WinRT;
 
 using static TerraFX.Interop.Windows.WM;
 using static TerraFX.Interop.Windows.WS;
+using static TerraFX.Interop.Windows.HWND;
+using static TerraFX.Interop.Windows.GWL;
+using static TerraFX.Interop.Windows.SWP;
 using static TerraFX.Interop.Windows.Windows;
 using static TerraFX.Interop.WinRT.WinRT;
 
@@ -68,16 +71,6 @@ namespace XamlIslandsNet9
             }  
         }
 		#region new code
-		private const int GWL_STYLE = -16; // Retrieves the window styles
-		private const int GWL_EXSTYLE = -20; // Retrieves the extended window styles
-
-		private const uint SWP_NOMOVE = 0x0002; // Retains the current position (ignores X and Y parameters)
-		private const uint SWP_NOSIZE = 0x0001; // Retains the current size (ignores cx and cy parameters)
-		private const uint SWP_NOZORDER = 0x0004; // Retains the current Z order (ignores hWndInsertAfter parameter)
-		private const uint SWP_FRAMECHANGED = 0x0020; // Applies new frame styles set using SetWindowLongPtr
-
-		private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1); // To keep window always on top
-
 		#endregion
 		[UnmanagedCallersOnly]
         private static LRESULT WndProc(HWND hWnd, uint message, WPARAM wParam, LPARAM lParam)
@@ -101,8 +94,8 @@ namespace XamlIslandsNet9
 						SetWindowLongPtr(hWnd, GWL_EXSTYLE, exStyle);*/
 
 						// Force the window to update its appearance
-						// Resize the window to 30x30 and keep it always on top
-						SetWindowPos(hWnd, (HWND)HWND_TOPMOST, 0, 0, 30, 30,
+						// Resize the window to 300x300 and keep it always on top
+						SetWindowPos(hWnd, (HWND)HWND_TOPMOST, 0, 0, 300, 300,
 									 SWP_NOMOVE | SWP_FRAMECHANGED);
 					}
 					#endregion

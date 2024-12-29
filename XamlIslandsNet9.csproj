@@ -35,11 +35,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\BatteryFlyoutControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\MediaPlayerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\VolumeControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+using XamlIslandsNet9.Pages;
 
 using WinRT;
 using System.Runtime.CompilerServices;
