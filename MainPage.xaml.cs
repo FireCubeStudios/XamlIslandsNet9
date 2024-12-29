@@ -23,6 +23,11 @@ namespace XamlIslandsNet9
         
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+			var m = new MicaAltBrush();
+			m.Kind = (int)BackdropKind.BaseAlt;
+			m.Theme = ElementTheme.Default;
+			this.Background = m;
+
 			/* // We aren't even using Bing tile source, so let's just hide the warning
 			 TryHideBingWarning(mapControl);
 
