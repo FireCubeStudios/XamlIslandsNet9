@@ -1,9 +1,17 @@
 using PowerStatus;
+using System;
 using System.Diagnostics;
 using System.Linq;
+using Windows.ApplicationModel.Core;
+using Windows.Foundation;
+using Windows.Graphics;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
 namespace XamlIslandsNet9.Pages
@@ -52,20 +60,36 @@ namespace XamlIslandsNet9.Pages
 
 			 mapControl.TileSources.Add(tileSource);*/
 		}
+
+		private async void Button_Click(object sender, RoutedEventArgs e)
+		{
+			CoreApplicationView newView = CoreApplication.CreateNewView();
+			int newViewId = 0;
+			await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			{
+				Frame frame = new Frame();
+				Window.Current.Content = frame;
+				// You have to activate the window in order to show it later.
+				Window.Current.Activate();
+
+				newViewId = ApplicationView.GetForCurrentView().Id;
+			});
+			bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+		}
 		/*
-        private static void TryHideBingWarning(MapControl mapControl)
-        {
-            var mapGrid = VisualTreeHelper.GetChild(mapControl, 0) as Grid;
-            if (mapGrid is not null)
-                mapGrid = mapGrid.FindName("MapGrid") as Grid;
+private static void TryHideBingWarning(MapControl mapControl)
+{
+	var mapGrid = VisualTreeHelper.GetChild(mapControl, 0) as Grid;
+	if (mapGrid is not null)
+		mapGrid = mapGrid.FindName("MapGrid") as Grid;
 
-            if (mapGrid is not null)
-            {
-                var mapBrorder = mapGrid.Children.FirstOrDefault(x => x is Border);
+	if (mapGrid is not null)
+	{
+		var mapBrorder = mapGrid.Children.FirstOrDefault(x => x is Border);
 
-                if (mapBrorder is not null)
-                    mapBrorder.Visibility = Visibility.Collapsed;
-            }
-        }*/
+		if (mapBrorder is not null)
+			mapBrorder.Visibility = Visibility.Collapsed;
+	}
+}*/
 	}
 }

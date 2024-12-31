@@ -14,6 +14,7 @@ using static TerraFX.Interop.Windows.WM;
 using static TerraFX.Interop.Windows.SW;
 using static TerraFX.Interop.Windows.SWP;
 using static TerraFX.Interop.Windows.Windows;
+using Windows.ApplicationModel.Core;
 
 namespace XamlIslandsNet9
 {
@@ -66,7 +67,7 @@ namespace XamlIslandsNet9
 
             _coreWindow = CoreWindow.GetForCurrentThread();
 
-            using ComPtr<ICoreWindowInterop> interop = default;
+			using ComPtr<ICoreWindowInterop> interop = default;
             ThrowIfFailed(((IUnknown*)((IWinRTObject)_coreWindow).NativeObject.ThisPtr)->QueryInterface(__uuidof<ICoreWindowInterop>(), (void**)interop.GetAddressOf()));
             interop.Get()->get_WindowHandle((HWND*)Unsafe.AsPointer(ref _coreHwnd));
 
@@ -80,7 +81,7 @@ namespace XamlIslandsNet9
         private void OnXamlInitialized()
         {
             Frame.Navigate(typeof(MainPage));
-        }
+		}
 
         internal void OnResize(int x, int y)
         {

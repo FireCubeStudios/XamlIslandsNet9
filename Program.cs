@@ -29,33 +29,7 @@ namespace XamlIslandsNet9
                 wc.lpszClassName = lpszClassName;
                 RegisterClassW(&wc);
 
-				#region old code
-				//CreateWindowExW(WS_EX_NOREDIRECTIONBITMAP, wc.lpszClassName, lpWindowName, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, HWND.NULL, HMENU.NULL, wc.hInstance, null);
-				#endregion
-
-				#region new code
-
-				// Use WS_POPUP for a borderless window, and WS_EX_TOOLWINDOW to hide it from the taskbar
-				CreateWindowExW(
-					WS_EX_NOREDIRECTIONBITMAP, //| WS_EX_TOOLWINDOW,
-					wc.lpszClassName,
-					lpWindowName,
-					WS_OVERLAPPEDWINDOW | WS_VISIBLE, // REPLACE WS_OVERLAPPEDWINDOW WITH WS_POPUP for borderless
-					CW_USEDEFAULT,
-					CW_USEDEFAULT,
-					CW_USEDEFAULT,
-					CW_USEDEFAULT,
-					HWND.NULL,
-					HMENU.NULL,
-					wc.hInstance,
-					null
-				);
-
-				#endregion
-
-
-
-
+				CreateWindowExW(WS_EX_NOREDIRECTIONBITMAP, wc.lpszClassName, lpWindowName, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, HWND.NULL, HMENU.NULL, wc.hInstance, null);
 
 
 				MSG msg;
@@ -83,9 +57,11 @@ namespace XamlIslandsNet9
                     #region new code
                     unsafe
                     {
-						nint style = GetWindowLongPtr(hWnd, GWL_STYLE);
+						/*nint style = GetWindowLongPtr(hWnd, GWL_STYLE);
 						style &= ~(WS_CAPTION | WS_THICKFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX); // Disable resizing and maximize/minimize
 						SetWindowLongPtr(hWnd, GWL_STYLE, style);
+                        */
+
 
 						// so window does not appear in taskbar
 						// disabled to test window
@@ -95,8 +71,7 @@ namespace XamlIslandsNet9
 
 						// Force the window to update its appearance
 						// Resize the window to 300x300 and keep it always on top
-						SetWindowPos(hWnd, (HWND)HWND_TOPMOST, 0, 0, 300, 300,
-									 SWP_NOMOVE | SWP_FRAMECHANGED);
+						//SetWindowPos(hWnd, (HWND)HWND_TOPMOST, 0, 0, 300, 300, SWP_NOMOVE | SWP_FRAMECHANGED);
 					}
 					#endregion
 					break;
