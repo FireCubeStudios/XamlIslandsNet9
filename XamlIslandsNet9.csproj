@@ -17,6 +17,16 @@
     <WindowsSdkPackageVersion>10.0.26100.57</WindowsSdkPackageVersion>
     <DisableEmbeddedXbf>true</DisableEmbeddedXbf>
     <DefineConstants>DISABLE_XAML_GENERATED_MAIN;$(DefineConstants)</DefineConstants>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>C:\Users\FireCube\Downloads\</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <GenerateAppxPackageOnBuild>True</GenerateAppxPackageOnBuild>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
 
   <ItemGroup>

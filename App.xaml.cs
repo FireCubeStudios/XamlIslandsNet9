@@ -20,98 +20,104 @@ namespace XamlIslandsNet9
 {
     public partial class App : Application
     {
-        private HWND _hwnd = default;
-        private HWND _xamlHwnd = default;
-        private HWND _coreHwnd = default;
-
-        private bool _xamlInitialized = false;
-
-        private DesktopWindowXamlSource _desktopWindowXamlSource = null;
-        private WindowsXamlManager _xamlManager = null;
-        private CoreWindow _coreWindow = null;
-
-        private ComPtr<IDesktopWindowXamlSourceNative2> _nativeSource = default;
-
-        internal Frame Frame = null;
-
-        public App(HWND hwnd)
+		public static WindowsXamlManager XamlManager = null;
+		public App()
         {
-            _hwnd = hwnd;
-            InitializeXaml();
+            XamlManager = WindowsXamlManager.InitializeForCurrentThread();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private unsafe void InternalLoadLibrary(string lib)
-        {
-            fixed (char* libName = lib)
-                LoadLibraryW(libName);
-        }
+        /*  private HWND _hwnd = default;
+          private HWND _xamlHwnd = default;
+          private HWND _coreHwnd = default;
 
-        private unsafe void InitializeXaml()
-        {
-            // Is this needed anymore? maybe for older builds?
-            InternalLoadLibrary("twinapi.appcore.dll");
-            InternalLoadLibrary("threadpoolwinrt.dll");
+          private bool _xamlInitialized = false;
 
-            _xamlManager = WindowsXamlManager.InitializeForCurrentThread();
-            _desktopWindowXamlSource = new();
+          private DesktopWindowXamlSource _desktopWindowXamlSource = null;
+          private WindowsXamlManager _xamlManager = null;
+          private CoreWindow _coreWindow = null;
 
-            ThrowIfFailed(((IUnknown*)((IWinRTObject)_desktopWindowXamlSource).NativeObject.ThisPtr)->QueryInterface(__uuidof<IDesktopWindowXamlSourceNative2>(), (void**)_nativeSource.GetAddressOf()));
+          private ComPtr<IDesktopWindowXamlSourceNative2> _nativeSource = default;
 
-            _nativeSource.Get()->AttachToWindow(_hwnd);
-            _nativeSource.Get()->get_WindowHandle((HWND*)Unsafe.AsPointer(ref _xamlHwnd));
+          internal Frame Frame = null;
 
-            RECT wRect;
-            GetClientRect(_hwnd, &wRect);
-            SetWindowPos(_xamlHwnd, HWND.NULL, 0, 0, wRect.right - wRect.left, wRect.bottom - wRect.top, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER);
+          public App(HWND hwnd)
+          {
+              _hwnd = hwnd;
+              InitializeXaml();
+          }*/
 
-            _coreWindow = CoreWindow.GetForCurrentThread();
+        /*  [MethodImpl(MethodImplOptions.AggressiveInlining)]
+          private unsafe void InternalLoadLibrary(string lib)
+          {
+              fixed (char* libName = lib)
+                  LoadLibraryW(libName);
+          }
 
-			using ComPtr<ICoreWindowInterop> interop = default;
-            ThrowIfFailed(((IUnknown*)((IWinRTObject)_coreWindow).NativeObject.ThisPtr)->QueryInterface(__uuidof<ICoreWindowInterop>(), (void**)interop.GetAddressOf()));
-            interop.Get()->get_WindowHandle((HWND*)Unsafe.AsPointer(ref _coreHwnd));
+          private unsafe void InitializeXaml()
+          {
+              // Is this needed anymore? maybe for older builds?
+              InternalLoadLibrary("twinapi.appcore.dll");
+              InternalLoadLibrary("threadpoolwinrt.dll");
 
-            Frame = new Frame();
-            _desktopWindowXamlSource.Content = Frame;
+              _xamlManager = WindowsXamlManager.InitializeForCurrentThread();
+              _desktopWindowXamlSource = new();
 
-            _xamlInitialized = true;
-            OnXamlInitialized();
-        }
+              ThrowIfFailed(((IUnknown*)((IWinRTObject)_desktopWindowXamlSource).NativeObject.ThisPtr)->QueryInterface(__uuidof<IDesktopWindowXamlSourceNative2>(), (void**)_nativeSource.GetAddressOf()));
 
-        private void OnXamlInitialized()
-        {
-            Frame.Navigate(typeof(MainPage));
-		}
+              _nativeSource.Get()->AttachToWindow(_hwnd);
+              _nativeSource.Get()->get_WindowHandle((HWND*)Unsafe.AsPointer(ref _xamlHwnd));
 
-        internal void OnResize(int x, int y)
-        {
-            if (_xamlHwnd != default)
-                SetWindowPos(_xamlHwnd, HWND.NULL, 0, 0, x, y, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER);
+              RECT wRect;
+              GetClientRect(_hwnd, &wRect);
+              SetWindowPos(_xamlHwnd, HWND.NULL, 0, 0, wRect.right - wRect.left, wRect.bottom - wRect.top, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER);
 
-            if (_coreHwnd != default)
-                SendMessageW(_coreHwnd, WM_SIZE, (WPARAM)x, y);
-        }
+              _coreWindow = CoreWindow.GetForCurrentThread();
 
-        internal void ProcessCoreWindowMessage(uint message, WPARAM wParam, LPARAM lParam)
-        {
-            if (_coreHwnd != default)
-                SendMessageW(_coreHwnd, message, wParam, lParam);
-        }
+              using ComPtr<ICoreWindowInterop> interop = default;
+              ThrowIfFailed(((IUnknown*)((IWinRTObject)_coreWindow).NativeObject.ThisPtr)->QueryInterface(__uuidof<ICoreWindowInterop>(), (void**)interop.GetAddressOf()));
+              interop.Get()->get_WindowHandle((HWND*)Unsafe.AsPointer(ref _coreHwnd));
 
-        internal void OnSetFocus()
-        {
-            if (_xamlHwnd != default)
-                SetFocus(_xamlHwnd);
-        }
+              Frame = new Frame();
+              _desktopWindowXamlSource.Content = Frame;
 
-        internal unsafe bool PreTranslateMessage(MSG* msg)
-        {
-            BOOL result = false;
+              _xamlInitialized = true;
+              OnXamlInitialized();
+          }
 
-            if (_xamlInitialized)
-                _nativeSource.Get()->PreTranslateMessage(msg, &result);
+          private void OnXamlInitialized()
+          {
+              Frame.Navigate(typeof(MainPage));
+          }
 
-            return result;
-        }
+          internal void OnResize(int x, int y)
+          {
+              if (_xamlHwnd != default)
+                  SetWindowPos(_xamlHwnd, HWND.NULL, 0, 0, x, y, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER);
+
+              if (_coreHwnd != default)
+                  SendMessageW(_coreHwnd, WM_SIZE, (WPARAM)x, y);
+          }
+
+          internal void ProcessCoreWindowMessage(uint message, WPARAM wParam, LPARAM lParam)
+          {
+              if (_coreHwnd != default)
+                  SendMessageW(_coreHwnd, message, wParam, lParam);
+          }
+
+          internal void OnSetFocus()
+          {
+              if (_xamlHwnd != default)
+                  SetFocus(_xamlHwnd);
+          }
+
+          internal unsafe bool PreTranslateMessage(MSG* msg)
+          {
+              BOOL result = false;
+
+              if (_xamlInitialized)
+                  _nativeSource.Get()->PreTranslateMessage(msg, &result);
+
+              return result;
+          }*/
     }
 }

@@ -22,6 +22,10 @@ namespace XamlIslandsNet9.Controls
 		public VolumeControl()
 		{
 			this.InitializeComponent();
+			var m = new MicaAltBrush();
+			m.Kind = (int)BackdropKind.BaseAlt;
+			m.Theme = ElementTheme.Default;
+			this.Background = m;
 		}
 
 		private string sanitise(double value) => ((int)value).ToString();
